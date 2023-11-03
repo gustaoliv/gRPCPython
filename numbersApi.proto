@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+// Nome do pacote, funciona como se fosse um namespace
+package numbers;
+
+/*
+    API responsável por fazer processamento de números
+*/
+service NumbersApi{
+    // Método que realiza a soma de dois números e retorna a soma deles
+    rpc SumNumbers(InputNumbers) returns (Number) {}
+    // Método que rotorna uma lista de números no intervalo [a, b]
+    rpc ListNumbers(InputNumbers) returns (stream Number) {}
+    // Método de comunicação bidirecional, retorna o quadrado do número de entrada
+    // até que esse número seja zero
+    rpc CalculateUntilZero(stream InputNumber) returns (stream Number) {}
+}
+
+// Variável de entrada com 2 inputs
+message InputNumbers {
+    int32 a = 1;
+    int32 b = 2;
+}
+
+// Variável de entrada com 1 input
+message InputNumber {
+    int32 a = 1;
+}
+
+// Variável de saída com 1 resultado
+message Number {
+    int32 result = 1;
+}
